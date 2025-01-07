@@ -226,6 +226,10 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
+vim.keymap.set("n", "<leader>gc", ":Neogit commit kind=floating<CR>", { desc = "Neogit commit" })
+vim.keymap.set("n", "<leader>gp", ":Neogit push kind=floating<CR>", { desc = "Neogit push" })
+vim.keymap.set("n", "<leader>gg", ":Neogit kind=floating<CR>", { desc = "Neogit push" })
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 
