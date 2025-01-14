@@ -243,6 +243,15 @@ require("config.lazy")
 --
 --  To update plugins you can run
 --    :Lazy update
+local os_name = vim.loop.os_uname().sysname
+
+if os_name == "Windows_NT" then
+	-- Set shell to PowerShell v7 on Windows
+	vim.o.shell = "pwsh" -- Use "pwsh" for PowerShell v7
+	vim.o.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command"
+	vim.o.shellquote = ""
+	vim.o.shellxquote = ""
+end
 --
 
 -- The line beneath this is called `modeline`. See `:help modeline`
