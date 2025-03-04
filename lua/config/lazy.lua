@@ -44,7 +44,17 @@ require("lazy").setup({
 			},
 		},
 	},
-
+	{
+		"nvim-tree/nvim-tree.lua",
+		version = "*",
+		lazy = false,
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+		},
+		config = function()
+			require("nvim-tree").setup({})
+		end,
+	},
 	-- NOTE: Plugins can also be configured to run Lua code when they are loaded.
 	--
 	-- This is often very useful to both group configuration, as well as handle
@@ -79,6 +89,37 @@ require("lazy").setup({
 			-- visual mode
 			require("which-key").add({
 				{ "<leader>h", name = "Git [H]unk", mode = "v" },
+			})
+		end,
+	},
+	{
+		"FLYDonkey123/deepseek.nvim",
+		config = function()
+			-- Plugin configuration (if any)
+			require("deepseek").setup({
+				api_key = "sk-815f44893ec84e908c67aad4fd478b73", -- Required
+				api_url = "https://api.deepseek.com/v1", -- Optional
+				keymaps = {
+					generate = "<leader>dg", -- Code generation
+					optimize = "<leader>do", -- Code optimization
+					analyze = "<leader>da", -- Code analysis
+					chat = "<leader>dc", -- AI chat
+				},
+				max_tokens = 2048, -- Max tokens per request
+				temperature = 0.7, -- Creativity level
+				enable_ui = true, -- Enable/disable UI elements
+				chat = {
+					system_prompt = "You are a helpful AI assistant", -- System prompt for chat
+					max_history = 10, -- Maximum conversation history length
+					enable_memory = true, -- Enable conversation memory
+					ui = {
+						enable = true,
+						position = "float", -- or "right"
+						width = 0.5, -- float window width ratio
+						height = 0.5, -- float window height ratio
+						border = "rounded", -- window border style
+					},
+				},
 			})
 		end,
 	},
