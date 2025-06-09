@@ -184,7 +184,7 @@ vim.g.NERDTreeShowHidden = 1
 vim.keymap.set("n", "<leader>tr", ":NERDTreeToggle<CR>", { desc = "Format json" })
 vim.g.undotree_DiffCommnad = "git diff"
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
-
+vim.keymap.set("n", "<leader>kd", ":normal gg=G<CR>")
 vim.keymap.set("n", "<leader>be", ':<c-u>lua require("b64").encode()<cr>')
 vim.keymap.set("n", "<leader>bd", ':<c-u>lua require("b64").encode()<cr>')
 -- TIP: Disable arrow keys in normal mode
