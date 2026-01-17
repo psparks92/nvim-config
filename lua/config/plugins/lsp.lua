@@ -24,6 +24,7 @@ return {
 			{ "folke/neodev.nvim", opts = {} },
 		},
 		config = function()
+			require("neodev").setup({})
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
 			-- Brief aside: **What is LSP?**
 			--
@@ -166,6 +167,10 @@ return {
 							completion = {
 								callSnippet = "Replace",
 							},
+							diagnostics = {
+								globals = { "vim" },
+								disable = { "undefined-global" },
+							},
 						},
 					},
 				},
@@ -179,12 +184,21 @@ return {
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
+			local function setup_server(server_name, server)
+				server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+				vim.lsp.config(server_name, server)
+				vim.lsp.enable(server_name)
+			end
+
+			setup_server("lua_ls", servers.lua_ls)
+
 			require("mason-lspconfig").setup({
 				handlers = {
 					function(server_name)
-						local server = servers[server_name] or {}
-						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-						require("lspconfig")[server_name].setup(server)
+						if server_name == "lua_ls" then
+							return
+						end
+						setup_server(server_name, servers[server_name] or {})
 					end,
 				},
 			})
