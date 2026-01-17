@@ -11,6 +11,7 @@ return { -- Highlight, edit, and navigate code
 			"luadoc",
 			"markdown",
 			"vim",
+			"rust",
 			"vimdoc",
 			"python",
 			"json",

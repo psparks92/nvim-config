@@ -326,6 +326,16 @@ require("lazy").setup({
 		},
 		config = true,
 	},
+	{
+		"mrcjkb/rustaceanvim",
+		version = "^6", -- Recommended
+		lazy = false, -- This plugin is already lazy
+		["rust-analyzer"] = {
+			cargo = {
+				allFeatures = true, -- Enable all features in the Cargo.toml
+			},
+		},
+	},
 
 	-- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
 	-- init.lua. If you want these files, they are in the repository, so you can just download them and
