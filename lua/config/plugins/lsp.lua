@@ -9,9 +9,7 @@ return {
 			{
 				"saghen/blink.cmp",
 				config = function()
-					require("blink.cmp").setup({
-						fuzzy = { implementation = "lua" },
-					})
+					require("blink.cmp").setup({})
 				end,
 			},
 
@@ -179,6 +177,11 @@ return {
 			require("mason").setup()
 
 			local ensure_installed = vim.tbl_keys(servers or {})
+			if vim.fn.has("win32") == 1 then
+				ensure_installed = vim.tbl_filter(function(server)
+					return server ~= "gopls"
+				end, ensure_installed)
+			end
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Used to format Lua code
 			})
@@ -186,8 +189,12 @@ return {
 
 			local function setup_server(server_name, server)
 				server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-				vim.lsp.config(server_name, server)
-				vim.lsp.enable(server_name)
+				if vim.lsp.config then
+					vim.lsp.config(server_name, server)
+					vim.lsp.enable(server_name)
+				else
+					require("lspconfig")[server_name].setup(server)
+				end
 			end
 
 			setup_server("lua_ls", servers.lua_ls)
